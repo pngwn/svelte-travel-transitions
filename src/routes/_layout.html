@@ -1,0 +1,25 @@
+<Nav segment={child.segment}/>
+
+<div>
+	<AppNavigation />
+	<svelte:component this={child.component}
+	                  {...child.props}/>
+	<AppFooter />
+</div>
+
+<style>
+	main {
+	  position: relative;
+	  max-width: 56em;
+	  background-color: white;
+	  padding: 2em;
+	  margin: 0 auto;
+	  box-sizing: border-box;
+	}
+</style>
+
+<script>
+	import AppNavigation from "../components/AppNavigation.html";
+	import AppFooter from "../components/AppFooter.html";
+	export let child, path;
+</script>
