@@ -1,0 +1,60 @@
+<header class={currentClass()}>
+
+	<div>
+		{#if $state.page === 'index'}
+		<div class="header-img1"></div>
+		{:elseif $state.page === 'place'}
+		<div class="header-img2"></div>
+		{:else}
+		<div class="header-img3"></div>
+		{/if}
+	</div>
+
+	<div class="nav-wrapper">
+		<nav>
+			<ul>
+				<li><a href="/">{ firstName(current.name)}'s Home</a></li>
+				<li><a href="/place">{ firstName(current.name)}'s Places</a></li>
+				<li><a href="/group">{firstName(current.name)}'s Group Trips</a></li>
+			</ul>
+
+			<div on:click={()=> menuOpened = !menuOpened}>
+				<IconBase class="menu"
+				          iconName="menu"
+				          iconColor="white"
+				          width="28"
+				          height="28">
+					<IconThreeDot/>
+				</IconBase>
+			</div>
+			<AppMenuDrawer menuOpened="{menuOpened}" />
+
+			<AppNavTransition /> {#if $state.page === 'index'}
+			<AppStats selectedUser="{current}" /> {/if}
+		</nav>
+	</div>
+</header>
+
+<script>
+  import AppMenuDrawer from "./AppMenuDrawer.html";
+  import IconBase from "./IconBase.html";
+  import IconThreeDot from "./IconThreeDot.html";
+  import AppNavTransition from "./AppNavTransition.html";
+  import AppStats from "./AppStats.html";
+
+  import { firstName } from "./_shared.js";
+
+  import { users } from "../store/users.js";
+  import { state } from "../store/state.js";
+
+  let saved = false;
+  let menuOpened = false;
+  let current;
+  $: current = $users[$state.currentUser];
+
+  const currentClass = () => `
+      ${$state.page === "place" ? "place" : ""}
+      ${$state.page === "group" ? "group" : ""}
+      ${$state.page === "index" ? "index" : ""}
+      `;
+</script>

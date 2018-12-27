@@ -3,29 +3,6 @@
 </svelte:head>
 
 <main>
-	<!-- <ul>
-		{#each $users as {name, followers}, i}
-		<li>
-			{name} -- {followers} --
-			<button on:click={()=> addFollower(i)}>Add Follower</button>
-			<button on:click={()=> removeFollower(i)}>Remove Follower</button>
-		</li>
-		{/each}
-	</ul>
-
-	<ul>
-		{#each $places as {name, stars, rating, img, description}}
-		<li>{name} -- {stars} -- {rating} -- {img} -- {description}</li>
-		{/each}
-	</ul>
-
-	<p>{$state.page}</p><button on:click={()=> changePage('boooo')}>Change Page</button>
-	<p>{$state.currentUser}</p><button on:click={changeUser}>Change User</button>
-
-
-	<p>{current.name} --- {current.followers}</p> -->
-
-
 	<div class="places"
 	     ref="places">
 		{#each $places as {name, rating, description, img}}
@@ -40,10 +17,9 @@
 		</div>
 		{/each}
 	</div>
-	<div class="mapcontain"
-	     ref="mapcontain">
+	<div class="mapcontain">
 		<p>
-			<IconBase icon-name="mappin">
+			<IconBase iconName="mappin">
 				<IconMapPin />
 			</IconBase>
 			Checked in at Honolulu location
@@ -57,13 +33,11 @@
 	import IconBase from "../components/IconBase.html";
 	import IconMapPin from "../components/IconMapPin.html";
 
-	import { users, addFollower, removeFollower } from "../store/users.js";
 	import { places } from "../store/places.js";
-	import { state, changePage, changeUser } from "../store/state.js";
 
-	let current;
-	$: current = $users[$state.currentUser];
+	let mapcontain;
 </script>
+
 <script context="module">
 	export async function preload({ params, query }) {
 	  return;
@@ -71,37 +45,37 @@
 </script>
 
 <style>
-	h1,
-	figure,
-	p {
-	  text-align: center;
-	  margin: 0 auto;
-	}
+																																																																																																																																																/* h1,
+																																																																																																																																																																																																																																																																																																																																																																																									figure,
+																																																																																																																																																																																																																																																																																																																																																																																									p {
+																																																																																																																																																																																																																																																																																																																																																																																									  text-align: center;
+																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 auto;
+																																																																																																																																																																																																																																																																																																																																																																																									}
 
-	h1 {
-	  font-size: 2.8em;
-	  text-transform: uppercase;
-	  font-weight: 700;
-	  margin: 0 0 0.5em 0;
-	}
+																																																																																																																																																																																																																																																																																																																																																																																									h1 {
+																																																																																																																																																																																																																																																																																																																																																																																									  font-size: 2.8em;
+																																																																																																																																																																																																																																																																																																																																																																																									  text-transform: uppercase;
+																																																																																																																																																																																																																																																																																																																																																																																									  font-weight: 700;
+																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 0 0.5em 0;
+																																																																																																																																																																																																																																																																																																																																																																																									}
 
-	figure {
-	  margin: 0 0 1em 0;
-	}
+																																																																																																																																																																																																																																																																																																																																																																																									figure {
+																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 0 1em 0;
+																																																																																																																																																																																																																																																																																																																																																																																									}
 
-	img {
-	  width: 100%;
-	  max-width: 400px;
-	  margin: 0 0 1em 0;
-	}
+																																																																																																																																																																																																																																																																																																																																																																																									img {
+																																																																																																																																																																																																																																																																																																																																																																																									  width: 100%;
+																																																																																																																																																																																																																																																																																																																																																																																									  max-width: 400px;
+																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 0 1em 0;
+																																																																																																																																																																																																																																																																																																																																																																																									}
 
-	p {
-	  margin: 1em auto;
-	}
+																																																																																																																																																																																																																																																																																																																																																																																									p {
+																																																																																																																																																																																																																																																																																																																																																																																									  margin: 1em auto;
+																																																																																																																																																																																																																																																																																																																																																																																									}
 
-	@media (min-width: 480px) {
-	  h1 {
-	    font-size: 4em;
-	  }
-	}
+																																																																																																																																																																																																																																																																																																																																																																																									@media (min-width: 480px) {
+																																																																																																																																																																																																																																																																																																																																																																																									  h1 {
+																																																																																																																																																																																																																																																																																																																																																																																									    font-size: 4em;
+																																																																																																																																																																																																																																																																																																																																																																																									  }
+																																																																																																																																																																																																																																																																																																																																																																																									} */
 </style>
