@@ -6,10 +6,26 @@ import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import sass from 'node-sass';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
+
+const sassTransform = ({content, attributes, filename}) => {
+	if (attributes.lang === 'scss') {
+		return new Promise((res, rej) => {
+			sass.render({
+				data: content, 
+				outFile: `${filename}.css`, 
+				sourceMap: true
+			}, (err, result) => {
+				if (err) rej(err);
+				res({ code: result.css.toString(), map: result.map.toString() })
+			});
+		});
+	}  						
+}
 
 export default {
 	client: {
@@ -23,7 +39,10 @@ export default {
 			svelte({
 				dev,
 				hydratable: true,
-				emitCss: true
+				emitCss: true,
+				preprocess: {
+					style:sassTransform
+				}
 			}),
 			resolve(),
 			commonjs(),
@@ -64,7 +83,11 @@ export default {
 			}),
 			svelte({
 				generate: 'ssr',
-				dev
+				dev, 
+				emitCss: true,
+				preprocess: {
+					style: sassTransform
+				}
 			}),
 			resolve(),
 			commonjs()

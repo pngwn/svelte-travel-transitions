@@ -44,38 +44,45 @@
 	}
 </script>
 
-<style>
-																																																																																																																																																/* h1,
-																																																																																																																																																																																																																																																																																																																																																																																									figure,
-																																																																																																																																																																																																																																																																																																																																																																																									p {
-																																																																																																																																																																																																																																																																																																																																																																																									  text-align: center;
-																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 auto;
-																																																																																																																																																																																																																																																																																																																																																																																									}
+<style lang="scss">
+  main {
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    margin-top: 120px;
+  }
 
-																																																																																																																																																																																																																																																																																																																																																																																									h1 {
-																																																																																																																																																																																																																																																																																																																																																																																									  font-size: 2.8em;
-																																																																																																																																																																																																																																																																																																																																																																																									  text-transform: uppercase;
-																																																																																																																																																																																																																																																																																																																																																																																									  font-weight: 700;
-																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 0 0.5em 0;
-																																																																																																																																																																																																																																																																																																																																																																																									}
+  .places {
+    img {
+      float: left;
+      margin: 0 15px 15px 0;
+    }
+    p {
+      margin-top: 10px;
+    }
+    .location {
+      padding: 10px 0;
+    }
+  }
 
-																																																																																																																																																																																																																																																																																																																																																																																									figure {
-																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 0 1em 0;
-																																																																																																																																																																																																																																																																																																																																																																																									}
+  hr {
+    border-top: 1px solid #ddd;
+    border-bottom: none;
+    margin-top: 15px;
+  }
 
-																																																																																																																																																																																																																																																																																																																																																																																									img {
-																																																																																																																																																																																																																																																																																																																																																																																									  width: 100%;
-																																																																																																																																																																																																																																																																																																																																																																																									  max-width: 400px;
-																																																																																																																																																																																																																																																																																																																																																																																									  margin: 0 0 1em 0;
-																																																																																																																																																																																																																																																																																																																																																																																									}
+  .mapcontain {
+    width: 35%;
+    float: right;
+    height: 400px;
+    p {
+      margin: 10px 0;
+    }
+  }
 
-																																																																																																																																																																																																																																																																																																																																																																																									p {
-																																																																																																																																																																																																																																																																																																																																																																																									  margin: 1em auto;
-																																																																																																																																																																																																																																																																																																																																																																																									}
-
-																																																																																																																																																																																																																																																																																																																																																																																									@media (min-width: 480px) {
-																																																																																																																																																																																																																																																																																																																																																																																									  h1 {
-																																																																																																																																																																																																																																																																																																																																																																																									    font-size: 4em;
-																																																																																																																																																																																																																																																																																																																																																																																									  }
-																																																																																																																																																																																																																																																																																																																																																																																									} */
+  @media screen and (max-width: 600px) {
+    .mapcontain {
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
 </style>
