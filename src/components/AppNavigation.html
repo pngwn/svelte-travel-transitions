@@ -1,12 +1,21 @@
-<header class={currentClass()}>
+<header>
 
-	<div>
-		{#if $state.page === 'index'}
-		<div class="header-img1"></div>
-		{:elseif $state.page === 'place'}
-		<div class="header-img2"></div>
+	<div class="bk-img">
+		{#if path === '/'}
+		<div class="header-img{bg[path]}"
+		     out:zoomFade
+		     in:zoomFade="{{scale:false}}">
+		</div>
+		{:elseif path === '/place'}
+		<div class="header-img2"
+		     out:zoomFade
+		     in:zoomFade="{{scale:false}}">
+		</div>
 		{:else}
-		<div class="header-img3"></div>
+		<div class="header-img3"
+		     out:zoomFade
+		     in:zoomFade="{{scale: false}}">
+		</div>
 		{/if}
 	</div>
 
@@ -18,45 +27,54 @@
 				<li><a href="/group">{firstName(current.name)}'s Group Trips</a></li>
 			</ul>
 
-			<div on:click={()=> menuOpened = !menuOpened}>
-				<IconBase class="menu"
+			<div on:click={toggleMenu}
+			     class="menu">
+				<IconBase className="menu"
 				          iconName="menu"
 				          iconColor="white"
 				          width="28"
 				          height="28">
-					<IconThreeDot/>
+					<IconThreeDot {menuOpen}/>
 				</IconBase>
 			</div>
-			<AppMenuDrawer menuOpened="{menuOpened}" />
-
-			<AppNavTransition /> {#if $state.page === 'index'}
-			<AppStats selectedUser="{current}" /> {/if}
+			{#if menuOpen}
+			<AppMenuDrawer /> {/if}
+			<AppNavTransition {path}/> {#if path === '/'}
+			<!--<AppStats selectedUser="{current}" />  -->
+			{/if}
 		</nav>
 	</div>
 </header>
 
 <script>
   import AppMenuDrawer from "./AppMenuDrawer.html";
-  import IconBase from "./IconBase.html";
-  import IconThreeDot from "./IconThreeDot.html";
+  import IconBase from "./icons/IconBase.html";
+  import IconThreeDot from "./icons/IconThreeDot.html";
   import AppNavTransition from "./AppNavTransition.html";
   import AppStats from "./AppStats.html";
 
-  import { firstName } from "./_shared.js";
+  import { firstName, zoomFade } from "./_shared.js";
 
   import { users } from "../store/users.js";
   import { state } from "../store/state.js";
 
-  let saved = false;
-  let menuOpened = false;
-  let current;
+  export let path;
+
+  let saved = false,
+    menuOpen = false,
+    current;
+
   $: current = $users[$state.currentUser];
 
-  const currentClass = () => `
-        ${$state.page === "place" ? "place" : ""}
-        ${$state.page === "group" ? "group" : ""}
-        ${$state.page === "index" ? "index" : ""}
-        `;
+  const bg = {
+    "/": 1,
+    "/place": 2,
+    "/group": 3
+  };
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+  }
 </script>
 
 <style lang="scss">
@@ -93,10 +111,10 @@
         rgba(0, 0, 0, 0.65) 100%
       ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       filter: progid:DXImageTransform.Microsoft.gradient(
-          startColorstr='#00000000',
-          endColorstr='#a6000000',
-          GradientType=1
-        ); /* IE6-9 fallback on horizontal gradient */
+                                                                                                                                                  startColorstr='#00000000',
+                                                                                                                                                  endColorstr='#a6000000',
+                                                                                                                                                  GradientType=1
+                                                                                                                                                ); /* IE6-9 fallback on horizontal gradient */
       opacity: 0.6;
     }
     &:after {
@@ -131,16 +149,16 @@
     @include header("/header3.jpg");
   }
 
-  .bk-enter-active,
-  .bk-leave-active {
-    transition: all 0.4s ease;
-  }
+  // .bk-enter-active,
+  // .bk-leave-active {
+  //   transition: all 0.4s ease;
+  // }
 
-  .bk-enter,
-  .bk-leave-to {
-    transform: scale(1.1) translateZ(0);
-    opacity: 0;
-  }
+  // .bk-enter,
+  // .bk-leave-to {
+  //   transform: scale(1.1) translateZ(0);
+  //   opacity: 0;
+  // }
 
   .bk-img {
     position: absolute;

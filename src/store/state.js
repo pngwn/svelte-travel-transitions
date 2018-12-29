@@ -13,6 +13,6 @@ export const changePage = pageName => {
 
 export const changeUser = i => {
     state.update(draft => {
-        draft.currentUser++;
+        draft.currentUser = i;
     });
 };

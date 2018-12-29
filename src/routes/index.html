@@ -1,13 +1,12 @@
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Svelte-Sapper Page Transitions</title>
 </svelte:head>
 
 <main>
 	<div class="places"
 	     ref="places">
 		{#each $places as {name, rating, description, img}}
-		<div v-for="place in places"
-		     class="location">
+		<div class="location">
 			<img src="{img}"
 			     alt="{name}" />
 			<h2>{name }</h2>
@@ -30,8 +29,8 @@
 
 
 <script>
-	import IconBase from "../components/IconBase.html";
-	import IconMapPin from "../components/IconMapPin.html";
+	import IconBase from "../components/icons/IconBase.html";
+	import IconMapPin from "../components/icons/IconMapPin.html";
 
 	import { places } from "../store/places.js";
 

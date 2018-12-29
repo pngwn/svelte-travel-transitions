@@ -1,27 +1,25 @@
-<transition mode="out-in"
-            @before-enter="beforeEnter"
-            @enter="enter">
-	{#if menuOpened}
-	<div class="menudrawer">
-		<ul>
-			<li><a href="/">{ firstName(current.name)}'s Home</a></li>
-			<li><a href="/place">{ firstName(current.name)}'s Places</a></li>
-			<li><a href="/group">{firstName(current.name)}'s Group Trips</a></li>
-		</ul>
-	</div>
-	{/if}
-</transition>
+<div class="menudrawer"
+     in:grow>
+	<ul>
+		<li in:fade="{{delay:50}}">
+			<a href="/">{ firstName(current.name)}'s Home</a>
+		</li>
+		<li in:fade="{{delay: 150}}">
+			<a href="/place">{ firstName(current.name)}'s Places</a>
+		</li>
+		<li in:fade="{{delay: 250}}">
+			<a href="/group">{firstName(current.name)}'s Group Trips</a>
+		</li>
+	</ul>
+</div>
 
 <script>
-    import { firstName } from "./_shared.js";
+  import { firstName, grow, fade } from "./_shared.js";
+  import { users } from "../store/users.js";
+  import { state } from "../store/state.js";
 
-    import { users } from "../store/users.js";
-    import { state } from "../store/state.js";
-
-    export let menuOpened;
-
-    let current;
-    $: current = $users[$state.currentUser];
+  let current;
+  $: current = $users[$state.currentUser];
 </script>
 
 <style>
@@ -35,6 +33,7 @@
     padding: 20px;
     border-radius: 4px;
     z-index: 10000;
+    transform-origin: 100% 0%;
   }
 
   a,

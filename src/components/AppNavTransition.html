@@ -1,1 +1,379 @@
-<p>AppNavTransitions</p>
+<!-- <transition-group tag="div"> -->
+<div class="{currentClass}">
+	{#each $users as {img, name}, i (name)}
+	<div on:click="{() => changeUser(i)}"
+	     class="{name === current.name ? activeUser : secondaryUser} profile-{i}">
+		<div class="online"></div>
+		<img src="{img}"
+		     alt="{name}'s profile image" />
+	</div>
+	{/each}
+
+	<button on:click="{() => toggleFollow()}"
+	        class="{following ? followclass : ''} follow">
+		{#if following}
+		<span>&#10004; Following</span>
+		{:else}
+		<span>Follow</span>
+		{/if}
+	</button>
+
+	<h2 key="profile-name"
+	    class="profile-name">
+		{#if path === '/group'}
+		<span class="user-trip">{ current.trips[0] }</span>
+		{:else}
+		<span>{ current.name }</span>
+		{/if}
+	</h2>
+
+	<div on:click="{addPlace}"
+	     class="side-icon"
+	     style="{path === '/' ? '': `transform: translateY(-40px); background-color: rgba(255, 255, 255, 0.8)`}">
+		{#if path === '/'}
+		<IconBase iconName="mail"
+		          iconColor="white"
+		          width="22"
+		          height="22">
+			<IconMail />
+		</IconBase>
+		{:else}
+		<IconBase iconName="plus"
+		          className="plus"
+		          width="18"
+		          height="18">
+			<IconPlus {saved}/>
+		</IconBase>
+		{/if}
+	</div>
+
+	<div bind:this={save}
+	     class="saveinfo">Saved!</div>
+
+
+	<aside key="aside">
+		{#if path === '/place'}
+		<p class="map-pin"
+		   transition:fade="{{ease: quadOut}}">
+			<IconBase iconName="map pin"
+			          width="18"
+			          height="18">
+				<IconMapPin />
+			</IconBase>
+			United States
+		</p>
+		{:elseif path === "/group"}
+		<p class="calendar"
+		   transition:fade="{{ease: quadOut}}">
+			<IconBase iconName="calendar"
+			          width="18"
+			          height="18">
+				<IconCalendar />
+			</IconBase>
+			{ current.days } days traveling
+		</p>
+		{/if}
+	</aside>
+
+</div>
+<!-- </transition-group> -->
+
+<script>
+  import anime from "animejs";
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition.js";
+  import { quadOut } from "svelte/easing.js";
+
+  import IconBase from "./icons/IconBase.html";
+  import IconMapPin from "./icons/IconMapPin.html";
+  import IconPlus from "./icons/IconPlus.html";
+  import IconCalendar from "./icons/IconCalendar.html";
+  import IconMail from "./icons/IconMail.html";
+
+  import { users, addFollower, removeFollower } from "../store/users.js";
+  import { state, changeUser } from "../store/state.js";
+
+  export let path;
+
+  let following = false,
+    follow = "follow",
+    followclass = "active-follow",
+    activeUser = "profile-photo",
+    secondaryUser = "profile-photo-secondary",
+    saved = false,
+    save,
+    tl,
+    current,
+    profile;
+
+  $: current = $users[$state.currentUser];
+
+  const addPlace = () => {
+    if (!saved && path !== "/") {
+      tl.restart();
+      saved = true;
+    } else {
+      saved = false;
+    }
+  };
+  const toggleFollow = () => {
+    if (following) {
+      removeFollower($state.currentUser);
+    } else {
+      addFollower($state.currentUser);
+    }
+    following = !following;
+  };
+
+  onMount(() => {
+    tl = anime({
+      targets: save,
+      autoplay: false,
+      opacity: [
+        { value: 1, duration: 500 },
+        { value: 0, delay: 1000, duration: 500 }
+      ],
+      easing: "easeOutExpo",
+      begin: anim => {
+        Object.assign(save.style, { visibility: "visible" });
+      },
+      complete: _ => {
+        Object.assign(save.style, { visibility: "hidden" });
+      }
+    });
+  });
+
+  function slide(node) {
+    return {
+      duration: 500,
+      delay: 0,
+      css: t => `transform: translateY(-40px);`
+    };
+  }
+
+  let currentClass;
+
+  $: currentClass =
+    path.replace("/", "") === "" ? "index" : path.replace("/", "");
+</script>
+
+<style lang="scss">
+  aside p {
+    text-align: right;
+    position: absolute;
+    right: 0;
+    top: 250px;
+    color: white;
+  }
+
+  .calendar,
+  .map-pin {
+    // transition: 0.4s all ease-out;
+    opacity: 1;
+  }
+
+  @mixin group($top, $left) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    display: block;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: 0.4s all ease-out;
+  }
+
+  @mixin online($size, $position, $border) {
+    position: absolute;
+    background: #07dc3c;
+    border-radius: 50% 50%;
+    width: $size;
+    height: $size;
+    right: $position;
+    bottom: $position;
+    border: $border;
+    opacity: 0;
+  }
+
+  .profile-photo {
+    width: 200px;
+    @include group(150px, 0);
+    img {
+      border-radius: 4px;
+    }
+    .online {
+      @include online(40px, 10px, 2px solid black);
+    }
+  }
+
+  .profile-photo-secondary {
+    @include group(150px, 0);
+    width: 200px;
+    opacity: 0;
+    transition: none;
+    img {
+      border-radius: 50% 50%;
+    }
+    .online {
+      @include online(40px, 0px, 1px solid black);
+    }
+  }
+
+  .profile-photo,
+  .profile-photo-secondary {
+    img {
+      transition: 0.4s all ease;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+
+  .profile-1 {
+    transform: translate3d(-15px, -70px, 0) scale(0.25);
+  }
+  .profile-2 {
+    transform: translate3d(40px, -70px, 0) scale(0.25);
+  }
+  .profile-3 {
+    transform: translate3d(95px, -70px, 0) scale(0.25);
+  }
+
+  .follow {
+    font-weight: bold;
+    z-index: 1;
+    width: 150px;
+    transition: 1s all ease;
+    @include group(320px, 220px);
+    &:focus {
+      outline: 1px dotted rgb(5, 134, 106);
+    }
+  }
+
+  .saveinfo {
+    color: white;
+    position: absolute;
+    top: 194px;
+    font-size: 20px;
+    right: 56px;
+    text-align: right;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .active-follow {
+    background: rgb(5, 134, 106);
+  }
+
+  .profile-name {
+    font-size: 35px;
+    @include group(355px, 0);
+  }
+
+  .side-icon {
+    position: absolute;
+    top: 220px;
+    right: 0;
+    display: block;
+    transition: 0.4s all ease-out;
+    padding: 12px 12px 9px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50% 50%;
+    cursor: pointer;
+  }
+
+  .place {
+    .follow {
+      transform: translate3d(-215px, -80px, 0);
+    }
+    .profile-photo {
+      transform: translate3d(-20px, -100px, 0) scale(0.75);
+    }
+    .profile-name {
+      transform: translate3d(140px, -125px, 0) scale(0.75);
+      color: white;
+    }
+    .side-icon {
+      transform: translate3d(0, -40px, 0);
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .calendar {
+      opacity: 1;
+    }
+  }
+
+  .group {
+    &.follow {
+      opacity: 0;
+      transition: none;
+    }
+    .profile-photo {
+      transform: translate3d(-70px, -70px, 0) scale(0.25);
+      img {
+        border-radius: 50% 50%;
+      }
+    }
+    .profile-0,
+    .profile-1,
+    .profile-2,
+    .profile-3 {
+      transition: 0.4s all ease-in-out;
+      opacity: 1;
+    }
+    .profile-photo,
+    .profile-photo-secondary {
+      img:hover {
+        transition: 0.2s all ease;
+        border: 10px solid white;
+      }
+    }
+    .online {
+      opacity: 1;
+    }
+    .profile-name {
+      transform: translate3d(0px, -125px, 0);
+      color: white;
+    }
+  }
+
+  .index.profile-photo {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .index.profile-photo.profile-0 {
+    transform: translate3d(0, 0, 0) scale(1) !important;
+  }
+
+  //make the icon aligned with the avatars that are similar on mobile
+  @media screen and (max-width: 600px) {
+    .group,
+    .place {
+      .side-icon {
+        transform: translate3d(0, -65px, 0);
+        padding: 14px 14px 12px;
+      }
+    }
+  }
+
+  .items,
+  .list-move {
+    transition: all 0.4s ease;
+  }
+
+  .list-leave-active {
+    position: absolute;
+  }
+
+  #text {
+    transform-origin: 50% 50%;
+  }
+
+  svg {
+    fill: #a8dadc;
+  }
+
+  @media screen and (max-width: 600px) {
+    ul,
+    aside {
+      display: none;
+    }
+  }
+</style>
