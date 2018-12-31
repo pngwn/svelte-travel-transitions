@@ -19,10 +19,11 @@
   import { state } from "../store/state.js";
 
   let current;
-  $: current = $users[$state.currentUser];
+  $: current = $users.find(v => v.id === $state.currentUser);
+  console.log();
 </script>
 
-<style>
+<style lang="scss">
   .menudrawer {
     background: rgba(0, 0, 0, 0.8);
     line-height: 1.8;
@@ -34,6 +35,9 @@
     border-radius: 4px;
     z-index: 10000;
     transform-origin: 100% 0%;
+    ul {
+      list-style: none;
+    }
   }
 
   a,

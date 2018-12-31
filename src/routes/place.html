@@ -1,4 +1,5 @@
-<main>
+<main in:fade="{{delay:400,duration: 400}}"
+      out:fade="{{duration: 400}}">
 
 	<div class="places">
 		<p class="top">{ $users[0].name }'s Places</p>
@@ -31,7 +32,7 @@
   import IconBase from "../components/icons/IconBase.html";
   import IconMapPin from "../components/icons/IconMapPin.html";
   import AppStarRating from "../components/AppStarRating.html";
-
+  import { fade } from "../components/_shared";
   import { users } from "../store/users.js";
   import { places } from "../store/places.js";
 </script>

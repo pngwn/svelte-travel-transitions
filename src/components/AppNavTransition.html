@@ -1,13 +1,16 @@
-<!-- <transition-group tag="div"> -->
 <div class="{currentClass}">
-	{#each $users as {img, name}, i (name)}
-	<div on:click="{() => changeUser(i)}"
-	     class="{name === current.name ? activeUser : secondaryUser} profile-{i}">
-		<div class="online"></div>
-		<img src="{img}"
-		     alt="{name}'s profile image" />
+
+	<div class="people">
+		{#each people as {img, name, id}, i (id)}
+		<div on:click="{() => changeUser(id)}"
+		     animate:swap="{{i}}"
+		     class="{name === current.name ? activeUser : secondaryUser} profile-{i}">
+			<div class="online"></div>
+			<img src="{img}"
+			     alt="{name}'s profile image" />
+		</div>
+		{/each}
 	</div>
-	{/each}
 
 	<button on:click="{() => toggleFollow()}"
 	        class="{following ? followclass : ''} follow">
@@ -76,13 +79,13 @@
 	</aside>
 
 </div>
-<!-- </transition-group> -->
 
 <script>
   import anime from "animejs";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition.js";
-  import { quadOut } from "svelte/easing.js";
+  import { quadOut, quintOut } from "svelte/easing.js";
+  import { swap } from "./_shared.js";
 
   import IconBase from "./icons/IconBase.html";
   import IconMapPin from "./icons/IconMapPin.html";
@@ -104,9 +107,11 @@
     save,
     tl,
     current,
+    people,
     profile;
 
-  $: current = $users[$state.currentUser];
+  $: current = $users.find(v => v.id === $state.currentUser);
+  $: people = [current, ...$users.filter(v => v.id !== current.id)];
 
   const addPlace = () => {
     if (!saved && path !== "/") {
@@ -173,13 +178,15 @@
   }
 
   @mixin group($top, $left) {
-    position: absolute;
-    top: $top;
-    left: $left;
+    // position: absolute;
+    // top: $top;
+    // left: $left;
     display: block;
     backface-visibility: hidden;
-    transform: translateZ(0);
-    transition: 0.4s all ease-out;
+    margin: 0 3px;
+    transform: scale(1);
+    transform-origin: 0 0;
+    // transition: 0.4s all ease-out;
   }
 
   @mixin online($size, $position, $border) {
@@ -188,60 +195,74 @@
     border-radius: 50% 50%;
     width: $size;
     height: $size;
-    right: $position;
-    bottom: $position;
+    top: $position;
+    left: $position;
     border: $border;
     opacity: 0;
+    transform-origin: 0 0;
+    z-index: 999;
   }
 
   .profile-photo {
-    width: 200px;
-    @include group(150px, 0);
+    width: 50px;
+    height: 50px;
+    @include group(50px, 0);
     img {
       border-radius: 4px;
+      transform-origin: 0 0;
     }
     .online {
-      @include online(40px, 10px, 2px solid black);
+      @include online(40px, 155px, 2px solid black);
+      // transform: scale(0.25);
     }
   }
 
   .profile-photo-secondary {
-    @include group(150px, 0);
-    width: 200px;
+    @include group(50px, 0);
+    width: 50px;
     opacity: 0;
-    transition: none;
+    // transition: none;
     img {
       border-radius: 50% 50%;
+      transform-origin: 0 0;
     }
     .online {
-      @include online(40px, 0px, 1px solid black);
+      @include online(40px, 155px, 2px solid black);
+      // transform: scale(0.25);
     }
   }
 
   .profile-photo,
   .profile-photo-secondary {
+    transition: 0.4s all ease;
     img {
       transition: 0.4s all ease;
-      width: 100%;
+      width: 400%;
       cursor: pointer;
     }
   }
 
+  .group .profile-0 {
+    transform: scale(0.25);
+  }
   .profile-1 {
-    transform: translate3d(-15px, -70px, 0) scale(0.25);
+    transform: scale(0.25);
   }
   .profile-2 {
-    transform: translate3d(40px, -70px, 0) scale(0.25);
+    transform: scale(0.25);
   }
   .profile-3 {
-    transform: translate3d(95px, -70px, 0) scale(0.25);
+    transform: scale(0.25);
   }
 
   .follow {
     font-weight: bold;
     z-index: 1;
     width: 150px;
-    transition: 1s all ease;
+    transition: 0.4s all ease;
+    position: absolute;
+    top: 320px;
+    left: 220px;
     @include group(320px, 220px);
     &:focus {
       outline: 1px dotted rgb(5, 134, 106);
@@ -265,6 +286,10 @@
 
   .profile-name {
     font-size: 35px;
+    position: absolute;
+    left: 0;
+    top: 355px;
+    transition: 0.4s all ease;
     @include group(355px, 0);
   }
 
@@ -282,13 +307,13 @@
 
   .place {
     .follow {
-      transform: translate3d(-215px, -80px, 0);
+      transform: translate3d(-218px, -84px, 0);
     }
     .profile-photo {
-      transform: translate3d(-20px, -100px, 0) scale(0.75);
+      transform: translate3d(2px, -80px, 0) scale(0.75);
     }
     .profile-name {
-      transform: translate3d(140px, -125px, 0) scale(0.75);
+      transform: translate3d(170px, -121px, 0) scale(0.75);
       color: white;
     }
     .side-icon {
@@ -299,14 +324,20 @@
       opacity: 1;
     }
   }
+  .people {
+    position: absolute;
+    top: 151px;
+    height: 50px;
+    display: flex;
+  }
 
   .group {
-    &.follow {
+    .follow {
       opacity: 0;
       transition: none;
     }
     .profile-photo {
-      transform: translate3d(-70px, -70px, 0) scale(0.25);
+      // transform: translate3d(-70px, -70px, 0) scale(0.25);
       img {
         border-radius: 50% 50%;
       }
@@ -315,7 +346,7 @@
     .profile-1,
     .profile-2,
     .profile-3 {
-      transition: 0.4s all ease-in-out;
+      // transition: 0.4s all ease-in-out;
       opacity: 1;
     }
     .profile-photo,
@@ -362,16 +393,7 @@
     position: absolute;
   }
 
-  #text {
-    transform-origin: 50% 50%;
-  }
-
-  svg {
-    fill: #a8dadc;
-  }
-
   @media screen and (max-width: 600px) {
-    ul,
     aside {
       display: none;
     }

@@ -11,7 +11,8 @@ export const users = immerObservable([
       followers: 2748,
       photos: 94,
       days: 32,
-      trips: ['Honolulu', 'Burmuda', 'Los Cabos', 'San Antonio']
+      trips: ['Honolulu', 'Burmuda', 'Los Cabos', 'San Antonio'],
+      id: 1
     },
     {
       name: 'Ben Allen',
@@ -23,7 +24,8 @@ export const users = immerObservable([
       followers: 789,
       photos: 32,
       days: 5,
-      trips: ['Honolulu', 'Peru', 'San Francisco']
+      trips: ['Honolulu', 'Peru', 'San Francisco'],
+      id: 2
     },
     {
       name: 'Jill Fernandez',
@@ -35,7 +37,8 @@ export const users = immerObservable([
       followers: 1705,
       photos: 45,
       days: 12,
-      trips: ['Honolulu', 'Tokyo', 'Osaka']
+      trips: ['Honolulu', 'Tokyo', 'Osaka'],
+      id: 3
     },
     {
       name: 'Cynthia Obel',
@@ -47,17 +50,18 @@ export const users = immerObservable([
       followers: 1705,
       photos: 45,
       days: 12,
-      trips: ['Honolulu', 'Tokyo', 'Osaka']
+      trips: ['Honolulu', 'Tokyo', 'Osaka'],
+      id: 4
     }
   ]);
 
 export const addFollower =  i => {
     users.update(draft => {
-        draft[i].followers++
+        draft.find(v=> v.id === i).followers++
     });
 };
 export const removeFollower =  i => {
     users.update(draft => {
-        draft[i].followers--
+        draft.find(v=> v.id === i).followers--
     });
 };

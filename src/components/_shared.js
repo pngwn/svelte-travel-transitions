@@ -1,4 +1,4 @@
-import { sineOut } from "svelte/easing.js";
+import { sineOut, quintOut } from "svelte/easing.js";
 
 export function firstName(input) {
   const lastIndex = input.lastIndexOf(" ");
@@ -13,12 +13,13 @@ export function grow(node) {
   };
 }
 
-export function fade(node, {delay}) {
+export function fade(node, {delay=0, duration = 150}) {
+  
   return {
-    duration: 150,
+    duration,
     delay,
     easing: sineOut,
-    css: t => `opacity: ${t}`
+    css: t => {console.log(t); return`opacity: ${t}`}
   };
 }
 
@@ -32,3 +33,13 @@ export function zoomFade(_, { scale = true }) {
     `
   };
 }
+
+export function swap (node, {from, to}, {duration = 700}) {
+  const x = from.left - to.left;
+
+  return {
+    duration,
+    easing: quintOut,
+    css: (t, u) => `transform: translateX(${u * x}px) scale(0.25);`
+    }
+};

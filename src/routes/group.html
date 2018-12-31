@@ -1,4 +1,5 @@
-<main>
+<main in:fade="{{delay:400,duration: 400}}"
+      out:fade="{{duration: 400}}">
 
 	<div class="places">
 		<p class="top">Group Activities</p>
@@ -37,8 +38,10 @@
 </main>
 
 <script>
-import IconBase from "../components/icons/IconBase.html";
-import IconCalendar from "../components/icons/IconCalendar.html";
+	import { fade } from "../components/_shared";
+
+	import IconBase from "../components/icons/IconBase.html";
+	import IconCalendar from "../components/icons/IconCalendar.html";
 </script>
 
 <script context="module">

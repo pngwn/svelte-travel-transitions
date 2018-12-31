@@ -2,7 +2,8 @@
 	<title>Svelte-Sapper Page Transitions</title>
 </svelte:head>
 
-<main>
+<main in:fade="{{delay:400,duration: 400}}"
+      out:fade="{{duration: 400}}">
 	<div class="places"
 	     ref="places">
 		{#each $places as {name, rating, description, img}}
@@ -31,7 +32,7 @@
 <script>
 	import IconBase from "../components/icons/IconBase.html";
 	import IconMapPin from "../components/icons/IconMapPin.html";
-
+	import { fade } from "../components/_shared";
 	import { places } from "../store/places.js";
 
 	let mapcontain;

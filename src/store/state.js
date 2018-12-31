@@ -2,7 +2,7 @@ import { immerObservable } from './store.js';
 
 export const state = immerObservable({
     page: 'index',
-    currentUser: 0
+    currentUser: 1
 });
 
 export const changePage = pageName => {
