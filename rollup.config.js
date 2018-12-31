@@ -37,7 +37,7 @@ export default {
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			svelte({
-				dev:false,
+				dev,
 				hydratable: true,
 				emitCss: true,
 				preprocess: {
@@ -83,8 +83,7 @@ export default {
 			}),
 			svelte({
 				generate: 'ssr',
-				dev:false, 
-				emitCss: true,
+				dev, 
 				preprocess: {
 					style: sassTransform
 				}
