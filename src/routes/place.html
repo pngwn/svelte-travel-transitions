@@ -6,7 +6,7 @@
 		<h1>{ $places[0].name }</h1>
 		<p><strong>Rating: { $places[0].rating }</strong></p>
 		<div class="stars">
-			<AppStarRating />
+			<StarRating />
 		</div>
 
 		<div class="main-img"></div>
@@ -29,7 +29,7 @@
 </main>
 
 <script>
-  import AppStarRating from "../components/AppStarRating.html";
+  import StarRating from "../components/StarRating.html";
 
   import { fade } from "../components/_shared";
   import { users, places } from "../store/index.js";

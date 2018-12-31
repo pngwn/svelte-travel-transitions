@@ -41,25 +41,25 @@
       </div>
 
 			{#if menuOpen}
-        <AppMenuDrawer />
+        <MenuDrawer />
       {/if}
 
-			<AppNavTransition {path}
+			<NavTransition {path}
                         {people}/>
 
-                        {#if path === '/'}
-        <AppStats selectedUser="{$currentUser}" />
+      {#if path === '/'}
+        <Stats selectedUser="{$currentUser}" />
       {/if}
 		</nav>
 	</div>
 </header>
 
 <script>
-  import AppMenuDrawer from "./AppMenuDrawer.html";
+  import MenuDrawer from "./MenuDrawer.html";
   import IconBase from "./icons/IconBase.html";
   import IconThreeDot from "./icons/IconThreeDot.html";
-  import AppNavTransition from "./AppNavTransition.html";
-  import AppStats from "./AppStats.html";
+  import NavTransition from "./NavTransition.html";
+  import Stats from "./Stats.html";
 
   import { firstName, zoomFade } from "./_shared.js";
   import { users, currentUser } from "../store/index.js";

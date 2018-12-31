@@ -3,16 +3,16 @@
 </svelte:head>
 
 <div>
-	<AppNavigation {path}/>
+	<Navigation {path}/>
 	<svelte:component this={child.component}
 	                  {...child.props}/>
-	<AppFooter />
+	<Footer />
 </div>
 
 
 <script>
-	import AppNavigation from "../components/AppNavigation.html";
-	import AppFooter from "../components/AppFooter.html";
+	import Navigation from "../components/Navigation.html";
+	import Footer from "../components/Footer.html";
 
 	export let child, path;
 </script>
