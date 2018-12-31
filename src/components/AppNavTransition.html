@@ -4,7 +4,7 @@
 		{#each people as {img, name, id}, i (id)}
 		<div on:click="{() => changeUser(id)}"
 		     animate:swap="{{i}}"
-		     class="{name === current.name ? activeUser : secondaryUser} profile-{i}">
+		     class="{name === current.name ? 'profile-photo' : 'profile-photo-secondary'} profile-{i}">
 			<div class="online"></div>
 			<img src="{img}"
 			     alt="{name}'s profile image" />
@@ -13,7 +13,7 @@
 	</div>
 
 	<button on:click="{() => toggleFollow()}"
-	        class="{following ? followclass : ''} follow">
+	        class="{following ? 'active-follow' : ''} follow">
 		{#if following}
 		<span>&#10004; Following</span>
 		{:else}
@@ -81,37 +81,39 @@
 </div>
 
 <script>
-  import anime from "animejs";
-  import { onMount } from "svelte";
-  import { fade } from "svelte/transition.js";
-  import { quadOut, quintOut } from "svelte/easing.js";
-  import { swap } from "./_shared.js";
-
   import IconBase from "./icons/IconBase.html";
   import IconMapPin from "./icons/IconMapPin.html";
   import IconPlus from "./icons/IconPlus.html";
   import IconCalendar from "./icons/IconCalendar.html";
   import IconMail from "./icons/IconMail.html";
 
-  import { users, addFollower, removeFollower } from "../store/users.js";
-  import { state, changeUser } from "../store/state.js";
+  import anime from "animejs";
+  import { onMount } from "svelte";
+  import { quadOut, quintOut } from "svelte/easing.js";
+  import { swap, fade } from "./_shared.js";
+
+  import {
+    users,
+    addFollower,
+    removeFollower,
+    state,
+    changeUser
+  } from "../store/index.js";
 
   export let path;
 
   let following = false,
-    follow = "follow",
-    followclass = "active-follow",
-    activeUser = "profile-photo",
-    secondaryUser = "profile-photo-secondary",
     saved = false,
     save,
     tl,
     current,
     people,
-    profile;
+    currentClass;
 
   $: current = $users.find(v => v.id === $state.currentUser);
   $: people = [current, ...$users.filter(v => v.id !== current.id)];
+  $: currentClass =
+    path.replace("/", "") === "" ? "index" : path.replace("/", "");
 
   const addPlace = () => {
     if (!saved && path !== "/") {
@@ -121,6 +123,7 @@
       saved = false;
     }
   };
+
   const toggleFollow = () => {
     if (following) {
       removeFollower($state.currentUser);
@@ -147,19 +150,6 @@
       }
     });
   });
-
-  function slide(node) {
-    return {
-      duration: 500,
-      delay: 0,
-      css: t => `transform: translateY(-40px);`
-    };
-  }
-
-  let currentClass;
-
-  $: currentClass =
-    path.replace("/", "") === "" ? "index" : path.replace("/", "");
 </script>
 
 <style lang="scss">
@@ -173,20 +163,15 @@
 
   .calendar,
   .map-pin {
-    // transition: 0.4s all ease-out;
     opacity: 1;
   }
 
   @mixin group($top, $left) {
-    // position: absolute;
-    // top: $top;
-    // left: $left;
     display: block;
     backface-visibility: hidden;
     margin: 0 3px;
     transform: scale(1);
     transform-origin: 0 0;
-    // transition: 0.4s all ease-out;
   }
 
   @mixin online($size, $position, $border) {
@@ -213,7 +198,6 @@
     }
     .online {
       @include online(40px, 155px, 2px solid black);
-      // transform: scale(0.25);
     }
   }
 
@@ -221,14 +205,12 @@
     @include group(50px, 0);
     width: 50px;
     opacity: 0;
-    // transition: none;
     img {
       border-radius: 50% 50%;
       transform-origin: 0 0;
     }
     .online {
       @include online(40px, 155px, 2px solid black);
-      // transform: scale(0.25);
     }
   }
 
@@ -337,7 +319,6 @@
       transition: none;
     }
     .profile-photo {
-      // transform: translate3d(-70px, -70px, 0) scale(0.25);
       img {
         border-radius: 50% 50%;
       }
@@ -346,7 +327,6 @@
     .profile-1,
     .profile-2,
     .profile-3 {
-      // transition: 0.4s all ease-in-out;
       opacity: 1;
     }
     .profile-photo,

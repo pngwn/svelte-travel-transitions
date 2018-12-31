@@ -15,12 +15,11 @@
 
 <script>
   import { firstName, grow, fade } from "./_shared.js";
-  import { users } from "../store/users.js";
-  import { state } from "../store/state.js";
+  import { users, state } from "../store/index.js";
 
   let current;
+
   $: current = $users.find(v => v.id === $state.currentUser);
-  console.log();
 </script>
 
 <style lang="scss">
