@@ -7,9 +7,6 @@ export function immerObservable(data) {
   function update(fn) {
     store.update(state => produce(state, fn));
   }
-
-  // console.log(store);
-
   return {
     update,
     subscribe: store.subscribe

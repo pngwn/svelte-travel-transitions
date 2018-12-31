@@ -2,24 +2,20 @@
      in:grow>
 	<ul>
 		<li in:fade="{{delay:50}}">
-			<a href="/">{ firstName(current.name)}'s Home</a>
+			<a href="/">{ firstName($currentUser.name)}'s Home</a>
 		</li>
 		<li in:fade="{{delay: 150}}">
-			<a href="/place">{ firstName(current.name)}'s Places</a>
+			<a href="/place">{ firstName($currentUser.name)}'s Places</a>
 		</li>
 		<li in:fade="{{delay: 250}}">
-			<a href="/group">{firstName(current.name)}'s Group Trips</a>
+			<a href="/group">{firstName($currentUser.name)}'s Group Trips</a>
 		</li>
 	</ul>
 </div>
 
 <script>
   import { firstName, grow, fade } from "./_shared.js";
-  import { users, state } from "../store/index.js";
-
-  let current;
-
-  $: current = $users.find(v => v.id === $state.currentUser);
+  import { users, currentUser } from "../store/index.js";
 </script>
 
 <style lang="scss">

@@ -1,4 +1,6 @@
 import { immerObservable} from './store.js';
+import {derive} from 'svelte/store';
+import {state} from './state.js';
 
 export const users = immerObservable([
     {
@@ -54,6 +56,8 @@ export const users = immerObservable([
       id: 4
     }
   ]);
+
+export const currentUser =  derive([state, users], ([state, users]) => users.find(v => v.id === state.currentUser));
 
 export const addFollower =  i => {
     users.update(draft => {

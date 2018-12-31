@@ -2,20 +2,20 @@
 
 	<div class="bk-img">
 		{#if path === '/'}
-		<div class="header-img{bg[path]}"
-		     out:zoomFade
-		     in:zoomFade="{{scale:false}}">
-		</div>
+      <div class="header-img{bg[path]}"
+          out:zoomFade
+          in:zoomFade="{{scale:false}}">
+      </div>
 		{:elseif path === '/place'}
-		<div class="header-img2"
-		     out:zoomFade
-		     in:zoomFade="{{scale:false}}">
-		</div>
+      <div class="header-img2"
+          out:zoomFade
+          in:zoomFade="{{scale:false}}">
+      </div>
 		{:else}
-		<div class="header-img3"
-		     out:zoomFade
-		     in:zoomFade="{{scale: false}}">
-		</div>
+      <div class="header-img3"
+          out:zoomFade
+          in:zoomFade="{{scale: false}}">
+      </div>
 		{/if}
 	</div>
 
@@ -23,27 +23,33 @@
 		<nav>
 			<ul>
 				<li><a rel=prefetch
-					   href="/">{ firstName(current.name)}'s Home</a></li>
+					   href="/">{ firstName($currentUser.name)}'s Home</a></li>
 				<li><a rel=prefetch
-					   href="/place">{ firstName(current.name)}'s Places</a></li>
+					   href="/place">{ firstName($currentUser.name)}'s Places</a></li>
 				<li><a rel=prefetch
-					   href="/group">{firstName(current.name)}'s Group Trips</a></li>
+					   href="/group">{firstName($currentUser.name)}'s Group Trips</a></li>
 			</ul>
 
 			<div on:click={toggleMenu}
 			     class="menu">
-				<IconBase className="menu"
-				          iconName="menu"
+				<IconBase iconName="menu"
 				          iconColor="white"
 				          width="28"
 				          height="28">
 					<IconThreeDot {menuOpen}/>
 				</IconBase>
-			</div>
+      </div>
+
 			{#if menuOpen}
-			<AppMenuDrawer /> {/if}
-			<AppNavTransition {path}/> {#if path === '/'}
-			<AppStats selectedUser="{current}" /> {/if}
+        <AppMenuDrawer />
+      {/if}
+
+			<AppNavTransition {path}
+                        {people}/>
+
+                        {#if path === '/'}
+        <AppStats selectedUser="{$currentUser}" />
+      {/if}
 		</nav>
 	</div>
 </header>
@@ -56,18 +62,15 @@
   import AppStats from "./AppStats.html";
 
   import { firstName, zoomFade } from "./_shared.js";
-
-  import { users, state } from "../store/index.js";
+  import { users, currentUser } from "../store/index.js";
 
   export let path;
 
   let saved = false,
     menuOpen = false,
-    current,
     people;
 
-  $: current = $users.find(v => v.id === $state.currentUser);
-  $: people = [current, ...$users.filter(v => v.id !== current.id)];
+  $: people = [$currentUser, ...$users.filter(v => v.id !== $currentUser.id)];
 
   const bg = {
     "/": 1,
@@ -78,6 +81,7 @@
   function toggleMenu() {
     menuOpen = !menuOpen;
   }
+
 </script>
 
 <style lang="scss">
@@ -114,10 +118,10 @@
         rgba(0, 0, 0, 0.65) 100%
       ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       filter: progid:DXImageTransform.Microsoft.gradient(
-                                                                                                                                                                  startColorstr='#00000000',
-                                                                                                                                                                  endColorstr='#a6000000',
-                                                                                                                                                                  GradientType=1
-                                                                                                                                                                ); /* IE6-9 fallback on horizontal gradient */
+                                                                                                                                                                            startColorstr='#00000000',
+                                                                                                                                                                            endColorstr='#a6000000',
+                                                                                                                                                                            GradientType=1
+                                                                                                                                                                          ); /* IE6-9 fallback on horizontal gradient */
       opacity: 0.6;
     }
     &:after {

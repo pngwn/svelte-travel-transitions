@@ -1,14 +1,16 @@
 <div>
 	{#each {length: rating} as _}
-	<IconBase iconName="full star"
-	          color="orangered">
-		<IconStarFull />
-	</IconBase>
-	{/each} {#each {length: maxRating} as _}
-	<IconBase iconName="empty star"
-	          color="orangered">
-		<IconStarEmpty />
-	</IconBase>
+		<IconBase iconName="full star"
+				      color="orangered">
+			<IconStarFull />
+		</IconBase>
+	{/each} 
+	
+	{#each {length: maxRating} as _}
+		<IconBase iconName="empty star"
+					    color="orangered">
+			<IconStarEmpty />
+		</IconBase>
 	{/each}
 </div>
 
