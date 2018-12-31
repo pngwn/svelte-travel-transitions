@@ -113,7 +113,7 @@
   $: current = $users.find(v => v.id === $state.currentUser);
   $: people = [current, ...$users.filter(v => v.id !== current.id)];
   $: currentClass =
-    path.replace("/", "") === "" ? "index" : path.replace("/", "");
+    path.replace(/\//g, "") === "" ? "index" : path.replace(/\//g, "");
 
   const addPlace = () => {
     if (!saved && path !== "/") {
