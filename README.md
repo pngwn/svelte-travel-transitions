@@ -1,6 +1,6 @@
 # svelte-travel-transitions
 
-[The actual app on the actual internet.](https://determined-agnesi-d32d53.netlify.com/)
+[The actual app on the actual internet.](https://svelte-travel.netlify.com/)
 
 A clone of Sarah Drasner's Vue/Nuxt [page-transitions-travelapp](https://github.com/sdras/page-transitions-travelapp) built with [Svelte](https://svelte.technology/) and [Sapper](https://sapper.svelte.technology/). All credit goes to Sarah!
 
