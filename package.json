@@ -16,8 +16,7 @@
     "compression": "^1.7.1",
     "polka": "^0.4.0",
     "sirv": "^0.2.0",
-    "typeface-josefin-sans": "^0.0.54",
-    "typeface-playfair-display": "^0.0.54"
+    "immer": "^1.9.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -26,7 +25,6 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "chokidar": "^2.0.4",
-    "immer": "^1.9.3",
     "node-sass": "^4.11.0",
     "npm-run-all": "^4.1.5",
     "rollup": "^0.65.2",
