@@ -3,9 +3,8 @@
 </svelte:head>
 
 <div>
-	<Navigation {path}/>
-	<svelte:component this={child.component}
-	                  {...child.props}/>
+	<Navigation path="{$page.path}" />
+	<slot></slot>
 	<Footer />
 </div>
 
@@ -14,5 +13,6 @@
 	import Navigation from "../components/Navigation.html";
 	import Footer from "../components/Footer.html";
 
-	export let child, path;
+  import { page } from '@sapper/app';
+
 </script>

@@ -6,7 +6,7 @@
           out:zoomFade
           in:zoomFade="{{scale:false}}">
       </div>
-		{:elseif path === '/place'}
+		{:else if path === '/place'}
       <div class="header-img2"
           out:zoomFade
           in:zoomFade="{{scale:false}}">
@@ -118,10 +118,10 @@
         rgba(0, 0, 0, 0.65) 100%
       ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       filter: progid:DXImageTransform.Microsoft.gradient(
-                                                                                                                                                                            startColorstr='#00000000',
-                                                                                                                                                                            endColorstr='#a6000000',
-                                                                                                                                                                            GradientType=1
-                                                                                                                                                                          ); /* IE6-9 fallback on horizontal gradient */
+        startColorstr='#00000000',
+        endColorstr='#a6000000',
+        GradientType=1
+      ); /* IE6-9 fallback on horizontal gradient */
       opacity: 0.6;
     }
     &:after {

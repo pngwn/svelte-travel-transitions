@@ -1,7 +1,7 @@
-<svelte:meta namespace='svg' />
-<g bind:this={plus}
+<svelte:options namespace='svg' />
+<g bind:this="{plus}"
    class="{saved ? 'saved' : ''}">
-	<line bind:this={line1}
+	<line bind:this="{line1}"
 	      x1="0"
 	      x2="24"
 	      y1="12"
@@ -9,7 +9,7 @@
 	      stroke="#333"
 	      stroke-linecap="round"
 	      stroke-width="3" />
-	<line bind:this={line2}
+	<line bind:this="{line2}"
 	      x1="12"
 	      x2="12"
 	      y1="0"

@@ -16,15 +16,15 @@ const sassTransform = ({content, attributes, filename}) => {
 	if (attributes.lang === 'scss') {
 		return new Promise((res, rej) => {
 			sass.render({
-				data: content, 
-				outFile: `${filename}.css`, 
+				data: content,
+				outFile: `${filename}.css`,
 				sourceMap: true
 			}, (err, result) => {
 				if (err) rej(err);
 				res({ code: result.css.toString(), map: result.map.toString() })
 			});
 		});
-	}  						
+	}
 }
 
 export default {
@@ -68,9 +68,6 @@ export default {
 				module: true
 			})
 		],
-
-		// temporary, pending Rollup 1.0
-		experimentalCodeSplitting: true
 	},
 
 	server: {
@@ -83,7 +80,7 @@ export default {
 			}),
 			svelte({
 				generate: 'ssr',
-				dev, 
+				dev,
 				preprocess: {
 					style: sassTransform
 				}
@@ -94,9 +91,6 @@ export default {
 		external: Object.keys(pkg.dependencies).concat(
 			require('module').builtinModules || Object.keys(process.binding('natives'))
 		),
-
-		// temporary, pending Rollup 1.0
-		experimentalCodeSplitting: true
 	},
 
 	serviceworker: {

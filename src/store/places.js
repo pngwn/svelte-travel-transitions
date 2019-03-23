@@ -1,6 +1,6 @@
-import { immerObservable } from './store.js';
+import { readable } from 'svelte/store';
 
-export const places = immerObservable([
+export const places = readable(set => set([
   {
     name: 'Honolulu',
     stars: 4,
@@ -25,4 +25,4 @@ export const places = immerObservable([
     description:
       'Wandered the cobblestone streets and quaint lanes of the town, which has been designated a UNESCO World Heritage site. A walking tour revealed historic architecture, colonial landmarks and alluring shops and restaurants.'
   }
-]);
+]));

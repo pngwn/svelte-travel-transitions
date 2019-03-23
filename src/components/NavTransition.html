@@ -33,7 +33,7 @@
 	<div on:click="{addPlace}"
 	     class="side-icon"
        style="{path === '/' ? '': `transform: translateY(-40px); background-color: rgba(255, 255, 255, 0.8)`}">
-       
+
 		{#if path === '/'}
       <IconBase iconName="mail"
                 iconColor="white"
@@ -48,7 +48,7 @@
         <IconPlus {saved}/>
       </IconBase>
     {/if}
-    
+
 	</div>
 
 	<div bind:this={save}
@@ -66,7 +66,7 @@
         </IconBase>
         United States
       </p>
-		{:elseif path === "/group"}
+		{:else if path === "/group"}
       <p class="calendar"
         transition:fade>
         <IconBase iconName="calendar"

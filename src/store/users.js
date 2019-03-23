@@ -61,11 +61,11 @@ export const currentUser =  derive([state, users], ([state, users]) => users.fin
 
 export const addFollower =  i => {
     users.update(draft => {
-        draft.find(v=> v.id === i).followers++
+        draft.find(v=> v.id === i).followers++;
     });
 };
 export const removeFollower =  i => {
     users.update(draft => {
-        draft.find(v=> v.id === i).followers--
+        draft.find(v=> v.id === i).followers--;
     });
 };
