@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@sveltejs/adapter-static': ^1.0.0-next.9
   '@sveltejs/kit': ^1.0.0-next.107
   animejs: ^2.2.0
   immer: ^1.9.3
@@ -14,6 +15,7 @@ dependencies:
   immer: 1.12.1
 
 devDependencies:
+  '@sveltejs/adapter-static': 1.0.0-next.9
   '@sveltejs/kit': 1.0.0-next.107_svelte@3.38.2
   node-sass: 4.14.1
   sass: 1.32.13
@@ -30,6 +32,10 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.2.3
+    dev: true
+
+  /@sveltejs/adapter-static/1.0.0-next.9:
+    resolution: {integrity: sha512-yqZ+4dzi+2+2jDPHCrI7WrLdXyQ/0U56a7aFdepmodpvpxhazF203D1ez+AtTo27FjMmHjfI+q0O2FivUOosxg==}
     dev: true
 
   /@sveltejs/kit/1.0.0-next.107_svelte@3.38.2:
