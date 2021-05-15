@@ -1,92 +1,9 @@
-<div class="{currentClass}">
-
-	<div class="people">
-		{#each people as {img, name, id}, i (id)}
-      <div on:click="{() => changeUser(id)}"
-          animate:swap="{{i}}"
-          class="{name === $currentUser.name ? 'profile-photo' : 'profile-photo-secondary'} profile-{i}">
-        <div class="online"></div>
-        <img src="{img}"
-            alt="{name}'s profile image" />
-      </div>
-		{/each}
-	</div>
-
-	<button on:click="{() => toggleFollow()}"
-	        class="{following ? 'active-follow' : ''} follow">
-		{#if following}
-		  <span>&#10004; Following</span>
-		{:else}
-		  <span>Follow</span>
-		{/if}
-	</button>
-
-	<h2 key="profile-name"
-	    class="profile-name">
-		{#if path === '/group'}
-		  <span class="user-trip">{ $currentUser.trips[0] }</span>
-		{:else}
-		  <span>{ $currentUser.name }</span>
-		{/if}
-	</h2>
-
-	<div on:click="{addPlace}"
-	     class="side-icon"
-       style="{path === '/' ? '': `transform: translateY(-40px); background-color: rgba(255, 255, 255, 0.8)`}">
-
-		{#if path === '/'}
-      <IconBase iconName="mail"
-                iconColor="white"
-                width="22"
-                height="22">
-        <IconMail />
-      </IconBase>
-		{:else}
-      <IconBase iconName="plus"
-                width="18"
-                height="18">
-        <IconPlus {saved}/>
-      </IconBase>
-    {/if}
-
-	</div>
-
-	<div bind:this={save}
-	     class="saveinfo">Saved!</div>
-
-
-	<aside key="aside">
-		{#if path === '/place'}
-      <p class="map-pin"
-        transition:fade>
-        <IconBase iconName="map pin"
-                  width="18"
-                  height="18">
-          <IconMapPin />
-        </IconBase>
-        United States
-      </p>
-		{:else if path === "/group"}
-      <p class="calendar"
-        transition:fade>
-        <IconBase iconName="calendar"
-                  width="18"
-                  height="18">
-          <IconCalendar />
-        </IconBase>
-        { $currentUser.days } days traveling
-      </p>
-		{/if}
-	</aside>
-
-</div>
-
 <script>
-  import IconBase from "./icons/IconBase.html";
-  import IconMapPin from "./icons/IconMapPin.html";
-  import IconPlus from "./icons/IconPlus.html";
-  import IconCalendar from "./icons/IconCalendar.html";
-  import IconMail from "./icons/IconMail.html";
+  import IconBase from "./icons/IconBase.svelte";
+  import IconMapPin from "./icons/IconMapPin.svelte";
+  import IconPlus from "./icons/IconPlus.svelte";
+  import IconCalendar from "./icons/IconCalendar.svelte";
+  import IconMail from "./icons/IconMail.svelte";
 
   import anime from "animejs";
   import { onMount } from "svelte";
@@ -97,7 +14,7 @@
     currentUser,
     addFollower,
     removeFollower,
-    changeUser
+    changeUser,
   } from "../store/index.js";
 
   export let path, people;
@@ -135,18 +52,92 @@
       autoplay: false,
       opacity: [
         { value: 1, duration: 500 },
-        { value: 0, delay: 1000, duration: 500 }
+        { value: 0, delay: 1000, duration: 500 },
       ],
       easing: "easeOutExpo",
-      begin: anim => {
+      begin: (anim) => {
         Object.assign(save.style, { visibility: "visible" });
       },
-      complete: _ => {
+      complete: (_) => {
         Object.assign(save.style, { visibility: "hidden" });
-      }
+      },
     });
   });
 </script>
+
+<div class={currentClass}>
+  <div class="people">
+    {#each people as { img, name, id }, i (id)}
+      <div
+        on:click={() => changeUser(id)}
+        animate:swap={{ i }}
+        class="{name === $currentUser.name
+          ? 'profile-photo'
+          : 'profile-photo-secondary'} profile-{i}"
+      >
+        <div class="online" />
+        <img src={img} alt="{name}'s profile image" />
+      </div>
+    {/each}
+  </div>
+
+  <button
+    on:click={() => toggleFollow()}
+    class="{following ? 'active-follow' : ''} follow"
+  >
+    {#if following}
+      <span>&#10004; Following</span>
+    {:else}
+      <span>Follow</span>
+    {/if}
+  </button>
+
+  <h2 key="profile-name" class="profile-name">
+    {#if path === "/group"}
+      <span class="user-trip">{$currentUser.trips[0]}</span>
+    {:else}
+      <span>{$currentUser.name}</span>
+    {/if}
+  </h2>
+
+  <div
+    on:click={addPlace}
+    class="side-icon"
+    style={path === "/"
+      ? ""
+      : `transform: translateY(-40px); background-color: rgba(255, 255, 255, 0.8)`}
+  >
+    {#if path === "/"}
+      <IconBase iconName="mail" iconColor="white" width="22" height="22">
+        <IconMail />
+      </IconBase>
+    {:else}
+      <IconBase iconName="plus" width="18" height="18">
+        <IconPlus {saved} />
+      </IconBase>
+    {/if}
+  </div>
+
+  <div bind:this={save} class="saveinfo">Saved!</div>
+
+  <aside key="aside">
+    {#if path === "/place"}
+      <p class="map-pin" transition:fade>
+        <IconBase iconName="map pin" width="18" height="18">
+          <IconMapPin />
+        </IconBase>
+        United States
+      </p>
+    {:else if path === "/group"}
+      <p class="calendar" transition:fade>
+        <IconBase iconName="calendar" width="18" height="18">
+          <IconCalendar />
+        </IconBase>
+        {$currentUser.days} days traveling
+      </p>
+    {/if}
+  </aside>
+</div>
 
 <style lang="scss">
   aside p {
