@@ -1,0 +1,28 @@
+<script>
+  export let iconName = "box",
+    width = 18,
+    height = 18,
+    iconColor = "CurrentColor";
+</script>
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  {width}
+  {height}
+  viewBox="0 0 24 24"
+  aria-labelledby={iconName}
+  role="presentation"
+>
+  <title id={iconName} lang="en">{iconName} icon</title>
+  <g fill={iconColor}>
+    <slot />
+  </g>
+</svg>
+
+<style>
+  svg {
+    display: inline-block;
+    vertical-align: baseline;
+    margin-bottom: -2px; /* yes, I'm that particular about formatting */
+  }
+</style>

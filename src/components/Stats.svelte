@@ -1,20 +1,20 @@
-<div class="stats">
-	<div class="bio">
-		<p>{ selectedUser.bio }</p>
-	</div>
-	<div>
-		<span class="desc">Followers</span><br>
-		<span class="lg">{ selectedUser.followers }</span>
-	</div>
-	<div>
-		<span class="desc">Following</span><br>
-		<span class="lg">{ selectedUser.following }</span>
-	</div>
-</div>
-
 <script>
-    export let selectedUser;
+  export let selectedUser;
 </script>
+
+<div class="stats">
+  <div class="bio">
+    <p>{selectedUser.bio}</p>
+  </div>
+  <div>
+    <span class="desc">Followers</span><br />
+    <span class="lg">{selectedUser.followers}</span>
+  </div>
+  <div>
+    <span class="desc">Following</span><br />
+    <span class="lg">{selectedUser.following}</span>
+  </div>
+</div>
 
 <style lang="scss">
   .stats {

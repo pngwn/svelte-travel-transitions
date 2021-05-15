@@ -1,22 +1,21 @@
-<div class="menudrawer"
-     in:grow>
-	<ul>
-		<li in:fade="{{delay:50}}">
-			<a href="/">{ firstName($currentUser.name)}'s Home</a>
-		</li>
-		<li in:fade="{{delay: 150}}">
-			<a href="/place">{ firstName($currentUser.name)}'s Places</a>
-		</li>
-		<li in:fade="{{delay: 250}}">
-			<a href="/group">{firstName($currentUser.name)}'s Group Trips</a>
-		</li>
-	</ul>
-</div>
-
 <script>
   import { firstName, grow, fade } from "./_shared.js";
   import { users, currentUser } from "../store/index.js";
 </script>
+
+<div class="menudrawer" in:grow>
+  <ul>
+    <li in:fade={{ delay: 50 }}>
+      <a href="/">{firstName($currentUser.name)}'s Home</a>
+    </li>
+    <li in:fade={{ delay: 150 }}>
+      <a href="/place">{firstName($currentUser.name)}'s Places</a>
+    </li>
+    <li in:fade={{ delay: 250 }}>
+      <a href="/group">{firstName($currentUser.name)}'s Group Trips</a>
+    </li>
+  </ul>
+</div>
 
 <style lang="scss">
   .menudrawer {

@@ -1,14 +1,16 @@
 <footer>
-	<p>
+  <p>
     Svelte-Sapper clone by <span>pngwn!</span> Original by
-    <a href="https://twitter.com/sarah_edo"
-		   target="_blank"
-		   rel="noopener">sarah_edo</a>. This project is open source, visit<a href="https://github.com/pngwn/svelte-travel-transitions"
-		   target="_blank"
-       rel="noopener">
+    <a href="https://twitter.com/sarah_edo" target="_blank" rel="noopener"
+      >sarah_edo</a
+    >. This project is open source, visit<a
+      href="https://github.com/pngwn/svelte-travel-transitions"
+      target="_blank"
+      rel="noopener"
+    >
       the repo.
     </a>
-	</p>
+  </p>
 </footer>
 
 <style>

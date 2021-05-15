@@ -1,65 +1,9 @@
-<header>
-
-	<div class="bk-img">
-		{#if path === '/'}
-      <div class="header-img{bg[path]}"
-          out:zoomFade
-          in:zoomFade="{{scale:false}}">
-      </div>
-		{:else if path === '/place'}
-      <div class="header-img2"
-          out:zoomFade
-          in:zoomFade="{{scale:false}}">
-      </div>
-		{:else}
-      <div class="header-img3"
-          out:zoomFade
-          in:zoomFade="{{scale: false}}">
-      </div>
-		{/if}
-	</div>
-
-	<div class="nav-wrapper">
-		<nav>
-			<ul>
-				<li><a rel=prefetch
-					   href="/">{ firstName($currentUser.name)}'s Home</a></li>
-				<li><a rel=prefetch
-					   href="/place">{ firstName($currentUser.name)}'s Places</a></li>
-				<li><a rel=prefetch
-					   href="/group">{firstName($currentUser.name)}'s Group Trips</a></li>
-			</ul>
-
-			<div on:click={toggleMenu}
-			     class="menu">
-				<IconBase iconName="menu"
-				          iconColor="white"
-				          width="28"
-				          height="28">
-					<IconThreeDot {menuOpen}/>
-				</IconBase>
-      </div>
-
-			{#if menuOpen}
-        <MenuDrawer />
-      {/if}
-
-			<NavTransition {path}
-                        {people}/>
-
-      {#if path === '/'}
-        <Stats selectedUser="{$currentUser}" />
-      {/if}
-		</nav>
-	</div>
-</header>
-
 <script>
-  import MenuDrawer from "./MenuDrawer.html";
-  import IconBase from "./icons/IconBase.html";
-  import IconThreeDot from "./icons/IconThreeDot.html";
-  import NavTransition from "./NavTransition.html";
-  import Stats from "./Stats.html";
+  import MenuDrawer from "./MenuDrawer.svelte";
+  import IconBase from "./icons/IconBase.svelte";
+  import IconThreeDot from "./icons/IconThreeDot.svelte";
+  import NavTransition from "./NavTransition.svelte";
+  import Stats from "./Stats.svelte";
 
   import { firstName, zoomFade } from "./_shared.js";
   import { users, currentUser } from "../store/index.js";
@@ -70,19 +14,70 @@
     menuOpen = false,
     people;
 
-  $: people = [$currentUser, ...$users.filter(v => v.id !== $currentUser.id)];
+  $: people = [$currentUser, ...$users.filter((v) => v.id !== $currentUser.id)];
 
   const bg = {
     "/": 1,
     "/place": 2,
-    "/group": 3
+    "/group": 3,
   };
 
   function toggleMenu() {
     menuOpen = !menuOpen;
   }
-
 </script>
+
+<header>
+  <div class="bk-img">
+    {#if path === "/"}
+      <div
+        class="header-img{bg[path]}"
+        out:zoomFade
+        in:zoomFade={{ scale: false }}
+      />
+    {:else if path === "/place"}
+      <div class="header-img2" out:zoomFade in:zoomFade={{ scale: false }} />
+    {:else}
+      <div class="header-img3" out:zoomFade in:zoomFade={{ scale: false }} />
+    {/if}
+  </div>
+
+  <div class="nav-wrapper">
+    <nav>
+      <ul>
+        <li>
+          <a rel="prefetch" href="/">{firstName($currentUser.name)}'s Home</a>
+        </li>
+        <li>
+          <a rel="prefetch" href="/place"
+            >{firstName($currentUser.name)}'s Places</a
+          >
+        </li>
+        <li>
+          <a rel="prefetch" href="/group"
+            >{firstName($currentUser.name)}'s Group Trips</a
+          >
+        </li>
+      </ul>
+
+      <div on:click={toggleMenu} class="menu">
+        <IconBase iconName="menu" iconColor="white" width="28" height="28">
+          <IconThreeDot {menuOpen} />
+        </IconBase>
+      </div>
+
+      {#if menuOpen}
+        <MenuDrawer />
+      {/if}
+
+      <NavTransition {path} {people} />
+
+      {#if path === "/"}
+        <Stats selectedUser={$currentUser} />
+      {/if}
+    </nav>
+  </div>
+</header>
 
 <style lang="scss">
   header {
@@ -117,11 +112,7 @@
         rgba(0, 0, 0, 0) 36%,
         rgba(0, 0, 0, 0.65) 100%
       ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      filter: progid:DXImageTransform.Microsoft.gradient(
-        startColorstr='#00000000',
-        endColorstr='#a6000000',
-        GradientType=1
-      ); /* IE6-9 fallback on horizontal gradient */
+
       opacity: 0.6;
     }
     &:after {
