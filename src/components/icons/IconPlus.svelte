@@ -52,7 +52,6 @@
       });
 
     if (saved) {
-      console.log(saved);
       tl.seek(550);
     }
   });
