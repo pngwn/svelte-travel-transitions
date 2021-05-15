@@ -10,7 +10,6 @@
 
   import { swap, fade } from "./_shared.js";
   import {
-    users,
     currentUser,
     addFollower,
     removeFollower,
@@ -23,7 +22,11 @@
     saved = false,
     save,
     tl,
-    currentClass;
+    currentClass,
+    el_name,
+    width;
+
+  $: console.log(el_name);
 
   $: currentClass =
     path.replace(/\//g, "") === "" ? "index" : path.replace(/\//g, "");
@@ -46,6 +49,22 @@
     following = !following;
   };
 
+  function get_translate_position() {
+    if (path === "/place") {
+      if (width > 560) {
+        console.log("boo");
+        return `${175}px, -121px, 0`;
+      } else {
+        return `${width - 45 - el_name * 0.75}px, -121px, 0`;
+      }
+    }
+    if (path === "/group") {
+      return `0px, -125px, 0`;
+    } else {
+      return `0, 0, 0`;
+    }
+  }
+
   onMount(() => {
     tl = anime({
       targets: save,
@@ -64,6 +83,8 @@
     });
   });
 </script>
+
+<svelte:window bind:innerWidth={width} />
 
 <div class={currentClass}>
   <div class="people">
@@ -92,11 +113,22 @@
     {/if}
   </button>
 
-  <h2 key="profile-name" class="profile-name">
+  <h2
+    bind:offsetWidth={el_name}
+    class="profile-name"
+    style="transform: translate3d({get_translate_position(
+      el_name,
+      width
+    )}) scale({path === '/place' ? 0.75 : 1});"
+  >
     {#if path === "/group"}
       <span class="user-trip">{$currentUser.trips[0]}</span>
     {:else}
-      <span>{$currentUser.name}</span>
+      <span
+        >{width > 400
+          ? $currentUser.name
+          : $currentUser.name.split(" ").shift()}</span
+      >
     {/if}
   </h2>
 
@@ -282,7 +314,7 @@
       transform: translate3d(2px, -80px, 0) scale(0.75);
     }
     .profile-name {
-      transform: translate3d(170px, -121px, 0) scale(0.75);
+      // transform: translate3d(170px, -121px, 0) scale(0.75);
       color: white;
     }
     .side-icon {
@@ -301,6 +333,9 @@
   }
 
   .group {
+    .follow {
+      display: none;
+    }
     .follow {
       opacity: 0;
       transition: none;
@@ -327,7 +362,7 @@
       opacity: 1;
     }
     .profile-name {
-      transform: translate3d(0px, -125px, 0);
+      // transform: translate3d(0px, -125px, 0);
       color: white;
     }
   }
@@ -342,6 +377,11 @@
 
   //make the icon aligned with the avatars that are similar on mobile
   @media screen and (max-width: 600px) {
+    .index {
+      .follow {
+        width: calc(100% - 220px);
+      }
+    }
     .group,
     .place {
       .side-icon {
