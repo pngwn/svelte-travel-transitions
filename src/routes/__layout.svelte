@@ -1,4 +1,5 @@
 <script>
+  import "../global.css";
   import Navigation from "../components/Navigation.svelte";
   import Footer from "../components/Footer.svelte";
 

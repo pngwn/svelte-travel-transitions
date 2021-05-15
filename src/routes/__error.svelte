@@ -1,5 +1,4 @@
 <script>
-  const dev = process.env.NODE_ENV === "development";
   export let error, status;
 </script>
 
@@ -9,10 +8,8 @@
 
 <h1>{status}</h1>
 
-<p>{error.message}</p>
-
-{#if dev && error.stack}
-  <pre>{error.stack}</pre>
+{#if error}
+  <p>{error.message}</p>
 {/if}
 
 <style>

@@ -26,8 +26,6 @@
     el_name,
     width;
 
-  $: console.log(el_name);
-
   $: currentClass =
     path.replace(/\//g, "") === "" ? "index" : path.replace(/\//g, "");
 
@@ -50,15 +48,13 @@
   };
 
   function get_translate_position() {
-    if (path === "/place") {
+    if (/place/.test(path)) {
       if (width > 560) {
-        console.log("boo");
         return `${175}px, -121px, 0`;
       } else {
         return `${width - 45 - el_name * 0.75}px, -121px, 0`;
       }
-    }
-    if (path === "/group") {
+    } else if (/group/.test(path)) {
       return `0px, -125px, 0`;
     } else {
       return `0, 0, 0`;
@@ -119,9 +115,9 @@
     style="transform: translate3d({get_translate_position(
       el_name,
       width
-    )}) scale({path === '/place' ? 0.75 : 1});"
+    )}) scale({/place/.test(path) ? 0.75 : 1});"
   >
-    {#if path === "/group"}
+    {#if /group/.test(path)}
       <span class="user-trip">{$currentUser.trips[0]}</span>
     {:else}
       <span
@@ -153,14 +149,14 @@
   <div bind:this={save} class="saveinfo">Saved!</div>
 
   <aside key="aside">
-    {#if path === "/place"}
+    {#if path === "/place/"}
       <p class="map-pin" transition:fade>
         <IconBase iconName="map pin" width="18" height="18">
           <IconMapPin />
         </IconBase>
         United States
       </p>
-    {:else if path === "/group"}
+    {:else if path === "/group/"}
       <p class="calendar" transition:fade>
         <IconBase iconName="calendar" width="18" height="18">
           <IconCalendar />

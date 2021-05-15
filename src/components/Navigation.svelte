@@ -35,7 +35,7 @@
         out:zoomFade
         in:zoomFade={{ scale: false }}
       />
-    {:else if path === "/place"}
+    {:else if path === "/place/"}
       <div class="header-img2" out:zoomFade in:zoomFade={{ scale: false }} />
     {:else}
       <div class="header-img3" out:zoomFade in:zoomFade={{ scale: false }} />
@@ -46,15 +46,17 @@
     <nav>
       <ul>
         <li>
-          <a rel="prefetch" href="/">{firstName($currentUser.name)}'s Home</a>
+          <a sveltekit:prefetch href="/"
+            >{firstName($currentUser.name)}'s Home</a
+          >
         </li>
         <li>
-          <a rel="prefetch" href="/place"
+          <a sveltekit:prefetch href="/place"
             >{firstName($currentUser.name)}'s Places</a
           >
         </li>
         <li>
-          <a rel="prefetch" href="/group"
+          <a sveltekit:prefetch href="/group"
             >{firstName($currentUser.name)}'s Group Trips</a
           >
         </li>

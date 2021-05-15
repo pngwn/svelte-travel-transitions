@@ -4,8 +4,6 @@
 
   import { fade } from "../components/_shared";
   import { places } from "../store/index.js";
-
-  console.log($places);
 </script>
 
 <main in:fade={{ delay: 400, duration: 400 }} out:fade={{ duration: 400 }}>
