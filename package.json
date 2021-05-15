@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "svelte-kit dev",
-    "build": "svelte-kit build ",
+    "build": "test \"$CI\" = true && npx pnpm install --store=node_modules/.pnpm-store || echo skiping pnpm install && svelte-kit build ",
     "start": "svelte-kit start",
     "prebuild": "test \"$CI\" = true && npx pnpm install --store=node_modules/.pnpm-store || echo skiping pnpm install"
   },
