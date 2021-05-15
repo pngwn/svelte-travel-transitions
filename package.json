@@ -1,11 +1,12 @@
 {
   "name": "svelte-travel-transitions",
-  "description": "A clone of Sarah Drasner's Vue/Nuxt page-transitions-travelapp built with Svelte and Sapper.",
+  "description": "A clone of Sarah Drasner's Vue/Nuxt page-transitions-travelapp built with SvelteKit.",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "svelte-kit dev",
-    "build": "npx pnpm install --store=node_modules/.pnpm-store && svelte-kit build ",
+    "build": "svelte-kit build",
+    "build:ci": "npx pnpm install --store=node_modules/.pnpm-store && svelte-kit build",
     "start": "svelte-kit start",
     "prebuild": "test \"$CI\" = true && npx pnpm install --store=node_modules/.pnpm-store || echo skiping pnpm install"
   },
@@ -16,7 +17,6 @@
   "devDependencies": {
     "@sveltejs/adapter-static": "^1.0.0-next.9",
     "@sveltejs/kit": "^1.0.0-next.107",
-    "node-sass": "^4.11.0",
     "sass": "^1.32.13",
     "svelte": "^3.38.2",
     "svelte-preprocess": "^2.4.3"
