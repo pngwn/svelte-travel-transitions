@@ -2,9 +2,7 @@
   import Navigation from "../components/Navigation.svelte";
   import Footer from "../components/Footer.svelte";
 
-  import { stores } from "@sapper/app";
-
-  const { page } = stores();
+  import { page } from "$app/stores";
 </script>
 
 <svelte:head>
