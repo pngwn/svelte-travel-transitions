@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-  <title>Svelte-Sapper Page Transitions</title>
+  <title>SvelteKit Page Transitions</title>
 </svelte:head>
 
 <div>
