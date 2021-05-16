@@ -1,6 +1,6 @@
 <footer>
   <p>
-    Svelte-Sapper clone by <span>pngwn!</span> Original by
+    SvelteKit clone by <span>pngwn!</span> Original by
     <a href="https://twitter.com/sarah_edo" target="_blank" rel="noopener"
       >sarah_edo</a
     >. This project is open source, visit<a
