@@ -40,6 +40,8 @@
     img {
       float: left;
       margin: 0 15px 15px 0;
+      height: 150px;
+      width: 150px;
     }
     p {
       margin-top: 10px;

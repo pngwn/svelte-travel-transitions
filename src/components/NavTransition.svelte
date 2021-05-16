@@ -210,6 +210,8 @@
     img {
       border-radius: 4px;
       transform-origin: 0 0;
+      width: 50px;
+      height: 50px;
     }
     .online {
       @include online(40px, 155px, 2px solid black);
@@ -235,6 +237,7 @@
     img {
       transition: 0.4s all ease;
       width: 400%;
+      height: 400%;
       cursor: pointer;
     }
   }

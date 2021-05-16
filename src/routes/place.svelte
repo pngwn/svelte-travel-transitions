@@ -40,6 +40,7 @@
 
   .location img {
     width: 70px;
+    height: 70px;
     float: left;
     margin: 0 10px 10px 0;
   }
