@@ -16,14 +16,14 @@ Clone the project to get started. Then:
 
 ```bash
 # install dependencies
-yarn install # or npm!
+pnpm install # or npm!
 
 # run the dev build
-yarn dev
+pnpm dev
 
 # build for production
-yarn build
+pnpm build
 
 # build a static site
-yarn export
+pnpm export
 ```
