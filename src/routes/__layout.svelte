@@ -11,7 +11,7 @@
 </svelte:head>
 
 <div>
-  <Navigation path={$page.path} />
+  <Navigation path={$page.url.pathname} />
   <slot />
   <Footer />
 </div>
