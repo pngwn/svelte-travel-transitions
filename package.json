@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "build:ci": "npx pnpm install --store=node_modules/.pnpm-store && svelte-kit build",
-    "start": "svelte-kit start",
+    "dev": "vite dev",
+    "build": "vite build",
+    "build:ci": "npx pnpm install --store=node_modules/.pnpm-store && vite build",
+    "preview": "vite preview",
     "prebuild": "test \"$CI\" = true && npx pnpm install --store=node_modules/.pnpm-store || echo skiping pnpm install"
   },
   "dependencies": {
@@ -15,10 +15,11 @@
     "immer": "^1.9.3"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^1.0.0-next.9",
-    "@sveltejs/kit": "^1.0.0-next.107",
+    "@sveltejs/adapter-static": "next",
+    "@sveltejs/kit": "next",
     "sass": "^1.32.13",
     "svelte": "^3.38.2",
-    "svelte-preprocess": "^2.4.3"
+    "svelte-preprocess": "^4.10.6",
+    "vite": "^3.0.4"
   }
 }
