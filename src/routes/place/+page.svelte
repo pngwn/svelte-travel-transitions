@@ -1,8 +1,8 @@
 <script>
-  import StarRating from "../components/StarRating.svelte";
+  import StarRating from "../../components/StarRating.svelte";
 
-  import { fade } from "../components/_shared";
-  import { users, places } from "../store/index.js";
+  import { fade } from "../../components/_shared";
+  import { users, places } from "../../store/index.js";
 </script>
 
 <main in:fade={{ delay: 400, duration: 400 }} out:fade={{ duration: 400 }}>

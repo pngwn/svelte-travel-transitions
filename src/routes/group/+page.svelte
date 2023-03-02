@@ -1,8 +1,8 @@
 <script>
-  import IconBase from "../components/icons/IconBase.svelte";
-  import IconCalendar from "../components/icons/IconCalendar.svelte";
+  import IconBase from "../../components/icons/IconBase.svelte";
+  import IconCalendar from "../../components/icons/IconCalendar.svelte";
 
-  import { fade } from "../components/_shared";
+  import { fade } from "../../components/_shared";
 </script>
 
 <main in:fade={{ delay: 400, duration: 400 }} out:fade={{ duration: 400 }}>
