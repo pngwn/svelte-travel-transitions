@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "animejs": "^2.2.0",
-    "immer": "^1.9.3"
+    "immer": "^9.0.6"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^2.0.1",
